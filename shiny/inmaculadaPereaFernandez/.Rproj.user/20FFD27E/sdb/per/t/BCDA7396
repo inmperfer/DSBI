@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "library(DT)\nlibrary(plotly)\nlibrary(leaflet)\nlibrary(ggmap)\nlibrary(dplyr)\n\ncreditos = read.csv(\"credit.csv\")\n\nnames(creditos)= c(\"X\", \"Ingresos\", \"Limite\", \"Tasa\", \"NumTarjetas\", \"Edad\", \n                   \"Educacion\", \"Sexo\", \"Estudiante\", \"Casado\", \"Raza\", \"Balance\")\n\nvar_categ= c(8:11)\nvar_numer = c(2, 3, 5, 6, 7)\n\n",
+    "created" : 1500969785773.000,
+    "dirty" : false,
+    "encoding" : "ISO8859-1",
+    "folds" : "",
+    "hash" : "708274849",
+    "id" : "BCDA7396",
+    "lastKnownWriteTime" : 1500979970,
+    "last_content_update" : 1500979970505,
+    "path" : "C:/INPF/FORMACION/MASTER/ASIGNATURAS/13.DS&BI/shiny/ejercicio_guiado/inmaculadaPereaFernandez/global.R",
+    "project_path" : "global.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

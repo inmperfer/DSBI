@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "\n# This is the server logic for a Shiny web application.\n# You can find out more about building applications with Shiny here:\n#\n# http://shiny.rstudio.com\n#\n\nlibrary(shiny)\n\nshinyServer(function(input, output) {\n\n  #### Video\n  output$video <- renderUI({\n    HTML('<iframe src=\"http://www.esa.int/spaceinvideos/content/view/embedjw/414359\" align=\"center\" width=\"640\" height=\"360\" frameborder=\"0\"></iframe>')\n  })\n  \n  \n  #### PAnel: Datos\n  \n  output$OUTdatos = DT::renderDataTable(creditos, \n                                        filter=\"top\")\n  \n  #### PAnel: Mapa\n  \n  output$map = leaflet::renderLeaflet({\n    leaflet() %>%\n      addTiles() %>%\n      setView(lng=-5.98814, lat=37.35945, zoom=18)\n    \n  })\n  \n  \n  #### PAnel: Bidimensional\n  datos_bid= reactive({\n    data.frame(varX=creditos[, input$Selvariable01],\n               varY=creditos[, input$Selvariable02],\n               Agru=creditos[, input$Selvariable03]\n               )\n  })\n  \n  #### PAnel: Dispersion\n  output$OUTdispersion = plotly::renderPlotly({\n    df_dispersion=datos_bid()\n    plotly::plot_ly(df_dispersion, x=~varX, y=~varY)\n  })\n  \n  #### PAnel: Dispersion Cat\n  output$OUTdispersioncat = plotly::renderPlotly({\n    df_dispersion=datos_bid()\n    plotly::plot_ly(df_dispersion, x=~varX, y=~varY, color=~Agru)\n  })\n  #### PAnel: Res REg lineal\n  output$OUTRegLineal =renderPrint({\n    df_reglineal =datos_bid()\n    cat(paste(\"VarX= \", input$Selvariable01, \"\\n\"))\n    cat(paste(\"VarY= \", input$Selvariable02, \"\\n\\n\"))\n    summary(lm(df_reglineal$varY~df_reglineal$varX))\n  })\n  \n\n  output$distPlot <- renderPlot({\n\n    # generate bins based on input$bins from ui.R\n    x    <- faithful[, 2]\n    bins <- seq(min(x), max(x), length.out = input$bins + 1)\n\n    # draw the histogram with the specified number of bins\n    hist(x, breaks = bins, col = 'darkgray', border = 'white')\n\n  })\n\n})\n",
+    "created" : 1500969753845.000,
+    "dirty" : false,
+    "encoding" : "ISO8859-1",
+    "folds" : "",
+    "hash" : "3035134504",
+    "id" : "F7C56632",
+    "lastKnownWriteTime" : 1501007859,
+    "last_content_update" : 1501007859296,
+    "path" : "C:/INPF/FORMACION/MASTER/ASIGNATURAS/13.DS&BI/shiny/ejercicio_guiado/inmaculadaPereaFernandez/server.R",
+    "project_path" : "server.R",
+    "properties" : {
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

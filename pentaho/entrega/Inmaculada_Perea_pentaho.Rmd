@@ -1,0 +1,90 @@
+---
+title: "Evaluación Data Science & Business Intelligence"
+subtitle: "Pentaho / Weka"
+author: "Inmaculada Perea Fernández"
+date: "julio 2017"
+output: pdf_document
+---
+
+
+![Transformación kettle](imagenes/kettle_grupos.png  "Transformación Kettle")
+
+
+# Bloque 1: Lectura base de datos
+
+Antes de realizar la lectura de la base de datos es necesario ejecutar el script customes.sql, este script realiza las siguientes acciones:
+
+* Crea schema *BANK*
+
+![Creación del schema BANK](imagenes/create_schema.png  "Creación del schema BANK")
+
+
+* Crea la tabla *CUSTOMERS*
+
+![Creación tabla CUSTOMERS](imagenes/creacion_tabla.png  "Creación tabla CUSTOMERS")
+
+
+* Inserta valores en los clientes en la base de datos
+
+![Inserción de clientes](imagenes/inserta_valores_clientes.png  "Inserción de clientes")
+
+Una vez poblada la base de datos se podrá consultar usando kettle y el componente "Entrada tabla", paramétrizado como se muestra en la figura a continuación: 
+
+![Conexion DB](imagenes/kettle_conexion_db.png  "Conexion DB")
+
+
+# Bloque 2: Modelo predictivo 
+
+El conjunto de datos data-bank consta de 600 observaciones y 12 variables, a continuación el significado de cada una:
+
+* **id**:	identificador único
+* **age**:	edad del cliente en años
+* **sex**: sexo (MALE / FEMALE)
+* **region**:	inner_city/rural/suburban/town
+* **income**:	sueldo del cliente
+* **married**:	está casado el cliente (YES/NO)
+* **children**:	número de hijos del cliente
+* **car**:	tiene el cliente coche propio (YES/NO)
+* **save_acct**:	tiene el cliente cuenta de ahorro (YES/NO)
+* **current_acct**:	tiene el cliente una cuenta corriente (YES/NO)
+* **mortgage**:	tiene hipoteca el cliente (YES/NO)
+* **pep**:	contratará el cliente un plan de inversión (YES/NO)
+
+La variable objetivo es *pep*
+
+```{r}
+credit_approval = read.table(file="data/bank-data.csv", header=TRUE, sep=",", dec=".")
+dim(credit_approval)
+summary(credit_approval)
+```
+
+Para construir el modelo se han realizado las siguientes transformaciones:
+
+## Filtrado de atributos
+
+El atributo *id* no es de interés para el estudio, por ello lo eliminaremos
+
+
+## Discretización
+
+![Transformación kettle](imagenes/discretizacion.png  "discretizacion")
+
+![Transformación kettle](imagenes/discretizacion.png  "filtrado_discretizado")
+ 
+
+Transformaciones editando el fichero:
+
+'\'(-inf-34.333333]\'' por 0_34
+
+'\'(34.333333-50.666667]\''  por 35_51
+
+'\'(50.666667-inf)\'' por 52_max
+
+'\'(-inf-24386.173333]\'' por 0_24386
+
+
+
+# Módulo 3: Filtrado
+
+
+# Módulo 4: Salida
